@@ -342,6 +342,7 @@ static int kNumDays = 31;
     int upper = 0;
     int lower = 0;
     int symbols = 0;
+    int unicode = 0;
 
     for (int i = 0; i < [password length]; i++) {
         unichar chr = [password characterAtIndex:i];
@@ -352,12 +353,14 @@ static int kNumDays = 31;
             upper = 26;
         } else if ([[NSCharacterSet lowercaseLetterCharacterSet] characterIsMember:chr]) {
             lower = 26;
-        } else {
+        } else if (chr <= 0x7f) {
             symbols = 33;
+        } else {
+            unicode = 100;
         }
     }
 
-    return digits + upper + lower + symbols;
+    return digits + upper + lower + symbols + unicode;
 }
 
 - (NSString *)displayTime:(float)seconds

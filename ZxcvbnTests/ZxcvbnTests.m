@@ -61,4 +61,14 @@
     
 }
 
+- (void)testHignerUnicodeCharactersPassword
+{
+
+    DBZxcvbn *zxcvbn = [[DBZxcvbn alloc] init];
+    DBResult *result = [zxcvbn passwordStrength:@"«“‘¥~‹" userInputs:nil];
+
+    XCTAssertEqual(result.score, 4);
+
+}
+
 @end
